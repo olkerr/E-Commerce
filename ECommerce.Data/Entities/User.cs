@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace ECommerce.Data.Entities
 {
@@ -12,15 +10,19 @@ namespace ECommerce.Data.Entities
 
         [Required, MaxLength(50), MinLength(2)]
         public string Surname { get; set; }
-
+        
         [Required, MaxLength(350), MinLength(6)]
         public string Email { get; set; }
 
-        [Required, MaxLength(40), MinLength(40)]
+        [Required, MinLength(40), MaxLength(40)]
         public string Password { get; set; }
 
         [Required]
         public bool Admin { get; set; }
 
+        public Guid? AutoLoginKey { get; set; }
+
+        public int TitleId { get; set; }
+        public virtual Title Title { get; set; }
     }
 }

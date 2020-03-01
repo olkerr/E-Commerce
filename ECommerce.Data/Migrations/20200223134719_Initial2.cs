@@ -16,7 +16,7 @@ namespace ECommerce.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "Admin", "CreateDate", "Deleted", "Email", "Name", "Password", "Surname", "UpdateDate" },
-                values: new object[] { 1, true, true, new DateTime(2020, 2, 23, 13, 47, 37, 233, DateTimeKind.Utc), false, "admin@admin.com", "Admin", "7C222FB2927D828AF22F592134E8932480637C0D", "Admin", null });
+                values: new object[] { 1, true, true, new DateTime(2020, 2, 23, 13, 47, 19, 12, DateTimeKind.Utc), false, "admin@admin.com", "Admin", "7C222FB2927D828AF22F592134E8932480637C0D", "Admin", null });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ECommerce.Data.Interfaces;
+﻿using ECommerce.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ECommerce.Web.Controllers
 {
@@ -15,6 +13,7 @@ namespace ECommerce.Web.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+
         public IActionResult Login()
         {
             return View();
@@ -25,7 +24,7 @@ namespace ECommerce.Web.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest("olm bak git");
-            }            
+            }
 
             var user = _unitOfWork.UserRepository.GetByEmailAndPassword(user_LoginAction_Request.Email, user_LoginAction_Request.Password);
 
@@ -33,8 +32,34 @@ namespace ECommerce.Web.Controllers
             {
                 return Unauthorized();
             }
+            else
+            {
+                HttpContext.Session.SetInt32("UserId", user.Id);
+
+                if (user_LoginAction_Request.RememberMe)
+                {
+                    //beni hatırla
+                    Guid guid = Guid.NewGuid();
+                    user.AutoLoginKey = guid;
+                    _unitOfWork.UserRepository.Update(user);
+                    _unitOfWork.Complete();
+
+                    HttpContext.Response.Cookies.Append("rememberme", guid.ToString(),
+                        new CookieOptions() {
+                            Expires = DateTime.UtcNow.AddYears(1)
+                        });
+                }
+            }
 
             return new JsonResult(user);
+        }
+
+        public IActionResult LogoutAction()
+        {
+            HttpContext.Session.Remove("UserId");
+            HttpContext.Response.Cookies.Delete("rememberme");
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

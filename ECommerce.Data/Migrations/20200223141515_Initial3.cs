@@ -20,7 +20,7 @@ namespace ECommerce.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreateDate",
-                value: new DateTime(2020, 2, 23, 14, 15, 39, 740, DateTimeKind.Utc));
+                value: new DateTime(2020, 2, 23, 14, 15, 15, 596, DateTimeKind.Utc));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace ECommerce.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreateDate",
-                value: new DateTime(2020, 2, 23, 13, 47, 37, 233, DateTimeKind.Utc));
+                value: new DateTime(2020, 2, 23, 13, 47, 19, 12, DateTimeKind.Utc));
         }
     }
 }

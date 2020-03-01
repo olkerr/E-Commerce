@@ -1,9 +1,7 @@
-﻿using ECommerce.Data.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using ECommerce.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Service
 {
@@ -13,7 +11,7 @@ namespace ECommerce.Service
 
         public Repository(Data.Contexts.DataContext dataContext)
         {
-            _entities = dataContext.Set<T>();                       
+            _entities = dataContext.Set<T>();
         }
 
         public T Get(int id)
@@ -24,6 +22,7 @@ namespace ECommerce.Service
         public T Insert(T entity)
         {
             _entities.Add(entity);
+
             return entity;
         }
 

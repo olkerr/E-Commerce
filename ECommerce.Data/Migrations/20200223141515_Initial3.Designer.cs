@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200223124854_Initial")]
-    partial class Initial
+    [Migration("20200223141515_Initial3")]
+    partial class Initial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -28,6 +28,8 @@ namespace ECommerce.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Active");
+
+                    b.Property<bool>("Admin");
 
                     b.Property<DateTime>("CreateDate");
 
@@ -41,7 +43,9 @@ namespace ECommerce.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -52,6 +56,10 @@ namespace ECommerce.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, Active = true, Admin = true, CreateDate = new DateTime(2020, 2, 23, 14, 15, 15, 596, DateTimeKind.Utc), Deleted = false, Email = "admin@admin.com", Name = "Admin", Password = "7C222FB2927D828AF22F592134E8932480637C0D", Surname = "Admin" }
+                    );
                 });
 #pragma warning restore 612, 618
         }
